@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pylint-hexagonal"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Jeremy Willemse", email = "jeremy@willemse.co" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "pylint>=3.2.5",
+]
+
+[project.urls]
+Documentation = "https://github.com/willemse-and-co/pylint-hexagonal#readme"
+Issues = "https://github.com/willemse-and-co/pylint-hexagonal/issues"
+Source = "https://github.com/willemse-and-co/pylint-hexagonal"
+
+[tool.hatch.version]
+path = "src/pylint_hexagonal/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/pylint_hexagonal tests}"
+
+[tool.coverage.run]
+source_pkgs = ["pylint_hexagonal", "tests", "example"]
+branch = true
+parallel = true
+omit = [
+  "src/pylint_hexagonal/__about__.py",
+]
+
+[tool.coverage.paths]
+pylint_hexagonal = ["src/pylint_hexagonal", "*/pylint-hexagonal/src/pylint_hexagonal"]
+tests = ["tests", "*/pylint-hexagonal/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
